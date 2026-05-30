@@ -484,6 +484,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     line-height: 1 !important;
   }
 
+  .hero__badge { font-size: 0.76rem; gap: 7px; padding: 7px 7px 7px 13px; }
+  .hero__badge b { font-size: 0.68rem; padding: 3px 8px; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .stat:nth-child(2) { border-right: none; }
   .stat { border-bottom: 1px solid var(--hairline); }

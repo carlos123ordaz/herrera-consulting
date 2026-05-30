@@ -64,4 +64,11 @@ const { t } = Astro.props;
       icon.innerHTML = menuIcon;
     });
   });
+
+  document.querySelectorAll('.lang-switch a').forEach(a => {
+    a.addEventListener('click', () => {
+      const href = (a as HTMLAnchorElement).getAttribute('href') || '';
+      sessionStorage.setItem('lang-chosen', href.includes('/en/') ? 'en' : 'es');
+    });
+  });
 </script>

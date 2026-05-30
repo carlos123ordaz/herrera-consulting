@@ -15,6 +15,17 @@ const { title, description, lang } = Astro.props;
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  {lang === 'es' && (
+    <script is:inline>
+      if (!sessionStorage.getItem('lang-chosen')) {
+        var l = (navigator.language || navigator.userLanguage || '').toLowerCase();
+        if (!l.startsWith('es')) {
+          sessionStorage.setItem('lang-chosen', 'en');
+          location.replace('/en/');
+        }
+      }
+    </script>
+  )}
 </head>
 <body>
   <slot />
