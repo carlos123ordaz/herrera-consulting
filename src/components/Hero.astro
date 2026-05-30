@@ -64,7 +64,7 @@ const h = t.hero;
 </style>
 
 <script>
-  const EASE = "cubic-bezier(0.22, 0.61, 0.36, 1)";
+  const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reduced) {
     const els = document.querySelectorAll<HTMLElement>('.reveal');
@@ -73,13 +73,16 @@ const h = t.hero;
       entries.forEach(e => {
         if (e.isIntersecting && !observed.has(e.target)) {
           observed.add(e.target);
+          const siblings = Array.from(e.target.parentElement?.querySelectorAll('.reveal') ?? []);
+          const idx = siblings.indexOf(e.target as Element);
+          const stagger = Math.min(idx * 80, 320);
           (e.target as HTMLElement).animate(
-            [{ opacity: 0, transform: 'translateY(26px)' }, { opacity: 1, transform: 'none' }],
-            { duration: 640, delay: 40, easing: EASE, fill: 'none' }
+            [{ opacity: 0, transform: 'translateY(36px)' }, { opacity: 1, transform: 'none' }],
+            { duration: 900, delay: stagger, easing: EASE, fill: 'none' }
           );
         }
       });
-    }, { threshold: 0.06 });
+    }, { threshold: 0.14 });
     els.forEach(el => io.observe(el));
   }
 </script>
