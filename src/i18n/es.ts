@@ -11,9 +11,6 @@ export const es: Translations = {
       { label: 'Servicios', href: '#servicios' },
       { label: 'Proceso', href: '#proceso' },
       { label: 'Casos', href: '#casos' },
-      { label: 'Planes', href: '#planes' },
-      { label: 'Equipo', href: '#equipo' },
-      { label: 'FAQ', href: '#faq' },
     ],
     cta: 'Agendar llamada',
     langSwitch: 'EN',
@@ -145,7 +142,7 @@ export const es: Translations = {
     lead: 'Cuéntanos tu reto. Agendamos una llamada, entendemos tu necesidad y te proponemos el mejor camino — sin compromiso.',
     points: [
       { icon: 'mail', title: 'hola@consultoraherrera.com', sub: 'Respondemos en menos de 24 horas' },
-      { icon: 'whatsapp', title: '+57 300 000 0000', sub: 'WhatsApp · Lun a Vie, 8am–6pm' },
+      { icon: 'whatsapp', title: '+51 904 435 631', sub: 'WhatsApp · Lun a Vie, 8am–6pm' },
       { icon: 'clock', title: 'Agenda una llamada de 30 min', sub: 'Sin compromiso, para conocernos' },
     ],
     form: {

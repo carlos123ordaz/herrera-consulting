@@ -11,9 +11,6 @@ export const en: Translations = {
       { label: 'Services', href: '#servicios' },
       { label: 'Process', href: '#proceso' },
       { label: 'Cases', href: '#casos' },
-      { label: 'Plans', href: '#planes' },
-      { label: 'Team', href: '#equipo' },
-      { label: 'FAQ', href: '#faq' },
     ],
     cta: 'Schedule a call',
     langSwitch: 'ES',
@@ -145,7 +142,7 @@ export const en: Translations = {
     lead: 'Tell us your challenge. We schedule a call, understand your need, and propose the best path — no commitment.',
     points: [
       { icon: 'mail', title: 'hola@consultoraherrera.com', sub: 'We respond in less than 24 hours' },
-      { icon: 'whatsapp', title: '+57 300 000 0000', sub: 'WhatsApp · Mon to Fri, 8am–6pm' },
+      { icon: 'whatsapp', title: '+51 904 435 631', sub: 'WhatsApp · Mon to Fri, 8am–6pm' },
       { icon: 'clock', title: 'Schedule a 30-min call', sub: 'No commitment, just to get acquainted' },
     ],
     form: {
