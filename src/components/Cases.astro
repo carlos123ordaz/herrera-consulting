@@ -1,0 +1,65 @@
+---
+import type { Translations } from '../i18n/types';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const c = t.cases;
+
+const IMAGES = [
+  '/images/case-finvex.jpg',
+  '/images/case-agrosur.jpg',
+  '/images/case-meditrack.jpg',
+  '/images/case-lumina.jpg',
+];
+const arrowRight = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+---
+
+<section class="section section--tight" id="casos">
+  <div class="container">
+    <div class="process__head reveal" style="align-items:flex-end">
+      <div class="section-head">
+        <span class="eyebrow">{c.eyebrow}</span>
+        <h2 class="h-section">{c.title}</h2>
+        <p class="lead">{c.lead}</p>
+      </div>
+      <a href="#contacto" class="link-arrow">{c.cta} <span set:html={arrowRight}></span></a>
+    </div>
+    <div class="cases">
+      {c.items.map((item, i) => (
+        <div class="case reveal">
+          <div class="case__media">
+            <img
+              src={IMAGES[i]}
+              alt={item.title}
+              class="case__img"
+              loading="lazy"
+              width="800"
+              height="450"
+            />
+          </div>
+          <div class="case__body">
+            <span class="case__cat">{item.cat}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+            <div class="case__metrics">
+              {item.metrics.map((m) => (
+                <div class="case__metric">
+                  <b>{m[0]}</b>
+                  <span>{m[1]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .case__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+</style>

@@ -1,0 +1,68 @@
+---
+import type { Translations } from '../i18n/types';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const tech = t.tech;
+const plusIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>`;
+---
+
+<section class="section" id="tecnologias">
+  <div class="container tech__layout">
+    <div>
+      <div class="section-head reveal">
+        <span class="eyebrow">{tech.eyebrow}</span>
+        <h2 class="h-section">{tech.title}</h2>
+        <p class="lead">{tech.lead}</p>
+      </div>
+      <div class="tech__cats">
+        {tech.cats.map((cat, i) => (
+          <div class={`tech-cat reveal ${i === 0 ? 'is-active' : ''}`} data-idx={i}>
+            <div class="tech-cat__top">
+              <span class="tech-cat__name"><i>{cat.code}</i>{cat.name}</span>
+              <span class="tech-cat__toggle" set:html={plusIcon}></span>
+            </div>
+            <div class="tech-cat__body">
+              <div class="tech-cat__body-inner">
+                <div class="tech-cat__chips">
+                  {cat.chips.map((chip) => <span>{chip}</span>)}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="tech__visual reveal">
+      <img
+        src="/images/tech-arch.jpg"
+        alt="Technology architecture"
+        class="tech__img"
+        loading="lazy"
+        width="720"
+        height="560"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech__img {
+    width: 100%;
+    height: 100%;
+    min-height: 440px;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--r-lg);
+    border: 1px solid var(--hairline);
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.tech-cat').forEach(cat => {
+    cat.addEventListener('click', () => {
+      const isActive = cat.classList.contains('is-active');
+      document.querySelectorAll('.tech-cat').forEach(c => c.classList.remove('is-active'));
+      if (!isActive) cat.classList.add('is-active');
+    });
+  });
+</script>

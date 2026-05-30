@@ -1,0 +1,45 @@
+---
+import type { Translations } from '../i18n/types';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const faq = t.faq;
+const arrowRight = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+---
+
+<section class="section" id="faq">
+  <div class="container faq__layout">
+    <div class="reveal">
+      <div class="section-head">
+        <span class="eyebrow">{faq.eyebrow}</span>
+        <h2 class="h-section">{faq.title}</h2>
+        <p class="lead">{faq.lead}</p>
+      </div>
+      <a href="#contacto" class="btn btn--ghost" style="margin-top:28px">
+        {faq.cta} <span set:html={arrowRight}></span>
+      </a>
+    </div>
+    <div class="faq__list reveal">
+      {faq.items.map((item, i) => (
+        <div class={`faq-item ${i === 0 ? 'is-open' : ''}`} data-faq>
+          <button class="faq-item__q">
+            {item.q}
+            <span class="faq-item__icon"></span>
+          </button>
+          <div class="faq-item__a">
+            <div class="faq-item__a-inner"><p>{item.a}</p></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-faq]').forEach(item => {
+    item.querySelector('.faq-item__q')!.addEventListener('click', () => {
+      const isOpen = item.classList.contains('is-open');
+      document.querySelectorAll('[data-faq]').forEach(el => el.classList.remove('is-open'));
+      if (!isOpen) item.classList.add('is-open');
+    });
+  });
+</script>

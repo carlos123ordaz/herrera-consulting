@@ -1,0 +1,42 @@
+---
+import type { Translations } from '../i18n/types';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const ft = t.footer;
+
+const linkedinIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-10h4v1.5"/><path d="M2 9h4v11H2z"/><path d="M4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>`;
+const githubIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>`;
+const twitterIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>`;
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="#top" class="brand">
+          <span class="brand__mark"><span></span></span>
+          <span>
+            {t.brand.name}
+            <small>{t.brand.tagline}</small>
+          </span>
+        </a>
+        <p>{ft.tagline}</p>
+        <div class="footer__social">
+          <a href="#" aria-label="LinkedIn" set:html={linkedinIcon}></a>
+          <a href="#" aria-label="GitHub" set:html={githubIcon}></a>
+          <a href="#" aria-label="Twitter" set:html={twitterIcon}></a>
+        </div>
+      </div>
+      {ft.cols.map((col) => (
+        <div class="footer__col">
+          <h4>{col.h}</h4>
+          {col.links.map((l) => <a href="#">{l}</a>)}
+        </div>
+      ))}
+    </div>
+    <div class="footer__bottom">
+      <span>{ft.copy}</span>
+      <span>{ft.madeWith}</span>
+    </div>
+  </div>
+</footer>

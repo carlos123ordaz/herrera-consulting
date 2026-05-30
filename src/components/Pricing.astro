@@ -1,0 +1,39 @@
+---
+import type { Translations } from '../i18n/types';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const p = t.pricing;
+const checkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>`;
+---
+
+<section class="section" id="planes">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow eyebrow--center">{p.eyebrow}</span>
+      <h2 class="h-section">{p.title}</h2>
+      <p class="lead">{p.lead}</p>
+    </div>
+    <div class="pricing-grid">
+      {p.items.map((plan) => (
+        <div class={`plan reveal ${plan.featured ? 'plan--featured' : ''}`}>
+          {plan.featured && <span class="plan__tag">{p.featured}</span>}
+          <div class="plan__name">{plan.name}</div>
+          <div class="plan__desc">{plan.desc}</div>
+          <div class="plan__price">
+            {plan.from && <span class="from">{plan.from}</span>}
+            <b>{plan.price}</b> <small>{plan.unit}</small>
+          </div>
+          <ul>
+            {plan.features.map((f) => (
+              <li>
+                <span set:html={checkIcon}></span>
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+          <a href="#contacto" class={`btn ${plan.featured ? 'btn--on-navy' : 'btn--ghost'}`}>{plan.cta}</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

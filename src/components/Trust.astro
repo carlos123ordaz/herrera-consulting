@@ -1,0 +1,19 @@
+---
+import type { Translations } from '../i18n/types';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const items = [...t.trust.items, ...t.trust.items];
+const layersIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;opacity:0.8"><path d="M12 2l9 5-9 5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>`;
+---
+
+<section class="trust">
+  <div class="trust__label">{t.trust.label}</div>
+  <div class="marquee">
+    {items.map((item) => (
+      <span class="marquee__item">
+        <span style="color:var(--accent);opacity:0.9" set:html={layersIcon}></span>
+        {item}
+      </span>
+    ))}
+  </div>
+</section>

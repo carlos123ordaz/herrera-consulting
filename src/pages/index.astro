@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { es } from '../i18n/es';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Trust from '../components/Trust.astro';
+import Services from '../components/Services.astro';
+import Process from '../components/Process.astro';
+import Tech from '../components/Tech.astro';
+import Cases from '../components/Cases.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Pricing from '../components/Pricing.astro';
+import Team from '../components/Team.astro';
+import FAQ from '../components/FAQ.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import ChatWidget from '../components/ChatWidget.astro';
+
+const t = es;
+---
+
+<Layout title={t.meta.title} description={t.meta.description} lang="es">
+  <Nav t={t} />
+  <main>
+    <Hero t={t} />
+    <Trust t={t} />
+    <Services t={t} />
+    <Process t={t} />
+    <Tech t={t} />
+    <Cases t={t} />
+    <Testimonials t={t} />
+    <Pricing t={t} />
+    <Team t={t} />
+    <FAQ t={t} />
+    <Contact t={t} />
+  </main>
+  <Footer t={t} />
+  <ChatWidget t={t} />
+</Layout>

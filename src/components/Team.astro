@@ -1,0 +1,52 @@
+---
+import type { Translations } from '../i18n/types';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const team = t.team;
+
+const PHOTOS = [
+  '/images/team-andres.jpg',
+  '/images/team-valentina.jpg',
+  '/images/team-mateo.jpg',
+  '/images/team-camila.jpg',
+];
+---
+
+<section class="section" id="equipo">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">{team.eyebrow}</span>
+      <h2 class="h-section">{team.title}</h2>
+      <p class="lead">{team.lead}</p>
+    </div>
+    <div class="team-grid">
+      {team.items.map((m, i) => (
+        <div class="member reveal">
+          <div class="member__photo">
+            <img
+              src={PHOTOS[i]}
+              alt={m.name}
+              class="member__img"
+              loading="lazy"
+              width="300"
+              height="340"
+            />
+          </div>
+          <h3>{m.name}</h3>
+          <div class="member__role">{m.role}</div>
+          <p>{m.bio}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .member__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+</style>

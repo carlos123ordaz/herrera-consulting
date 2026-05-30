@@ -1,0 +1,85 @@
+---
+import type { Translations } from '../i18n/types';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const h = t.hero;
+---
+
+<section class="hero reveal" id="top">
+  <div class="hero__grid-bg"></div>
+  <div class="container hero__inner">
+    <div class="hero__badge reveal">
+      <span class="hero__dot"></span>
+      {h.badge}
+      <b>{h.badgeTag}</b>
+    </div>
+    <h1 class="h-display reveal">{h.titlePre}<em>{h.titleEm}</em>{h.titlePost}</h1>
+    <p class="lead hero__lead reveal">{h.lead}</p>
+    <div class="hero__actions reveal">
+      <a href="#contacto" class="btn btn--primary btn--lg">
+        {h.ctaPrimary}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#servicios" class="btn btn--ghost btn--lg">{h.ctaSecondary}</a>
+      <span class="hero__note">{h.note}</span>
+    </div>
+
+    <div class="hero__visual reveal">
+      <div class="hero__panel">
+        <div class="hero__panel-bar">
+          <i></i><i></i><i></i>
+          <span>{h.panelLabel}</span>
+        </div>
+        <div class="hero__panel-body">
+          <img
+            src="/images/hero-dashboard.jpg"
+            alt="Product dashboard"
+            class="hero__img"
+            loading="eager"
+            width="1600"
+            height="840"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="stats reveal">
+      {t.stats.map((s) => (
+        <div class="stat">
+          <div class="stat__num">{s.num}<span>{s.suffix}</span></div>
+          <div class="stat__label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+</style>
+
+<script>
+  const EASE = "cubic-bezier(0.22, 0.61, 0.36, 1)";
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduced) {
+    const els = document.querySelectorAll<HTMLElement>('.reveal');
+    const observed = new Set<Element>();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !observed.has(e.target)) {
+          observed.add(e.target);
+          (e.target as HTMLElement).animate(
+            [{ opacity: 0, transform: 'translateY(26px)' }, { opacity: 1, transform: 'none' }],
+            { duration: 640, delay: 40, easing: EASE, fill: 'none' }
+          );
+        }
+      });
+    }, { threshold: 0.06 });
+    els.forEach(el => io.observe(el));
+  }
+</script>

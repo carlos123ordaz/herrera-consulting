@@ -1,0 +1,122 @@
+---
+import type { Translations } from '../i18n/types';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const ch = t.chat;
+
+const botIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7V4"/><path d="M9 4h6"/><path d="M5 9h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2z"/><path d="M9 14h.01"/><path d="M15 14h.01"/></svg>`;
+const xIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>`;
+const sendIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>`;
+---
+
+<button class="chat-fab" id="chat-fab" aria-label={ch.fabLabel}>
+  <span class="chat-fab__pulse"></span>
+  <span class="chat-fab__ic" set:html={botIcon}></span>
+  <span>{ch.fabLabel}</span>
+</button>
+
+<div class="chat-panel" id="chat-panel" role="dialog" aria-label={ch.dialogLabel}>
+  <div class="chat-head">
+    <div class="chat-head__avatar">
+      <span set:html={botIcon}></span>
+      <i></i>
+    </div>
+    <div class="chat-head__info">
+      <b>{ch.botName}</b>
+      <span>
+        <span style="width:7px;height:7px;border-radius:50%;background:oklch(0.8 0.18 145);display:inline-block"></span>
+        {ch.botStatus}
+      </span>
+    </div>
+    <button class="chat-head__close" id="chat-close" aria-label={ch.closeLabel} set:html={xIcon}></button>
+  </div>
+
+  <div class="chat-body" id="chat-body"></div>
+
+  <div class="chat-chips" id="chat-chips">
+    {ch.chips.map((chip) => (
+      <button class="chip-btn" data-text={chip}>{chip}</button>
+    ))}
+  </div>
+
+  <form class="chat-input" id="chat-form">
+    <input type="text" id="chat-input" placeholder={ch.inputPlaceholder} autocomplete="off" />
+    <button type="submit" id="chat-send" disabled aria-label="Send" set:html={sendIcon}></button>
+  </form>
+  <div class="chat-disclaimer">{ch.disclaimer}</div>
+</div>
+
+<script define:vars={{ greeting: ch.greeting, scripted: ch.scripted, defaultReply: ch.defaultReply }}>
+  const fab = document.getElementById('chat-fab');
+  const panel = document.getElementById('chat-panel');
+  const closeBtn = document.getElementById('chat-close');
+  const body = document.getElementById('chat-body');
+  const chipsEl = document.getElementById('chat-chips');
+  const form = document.getElementById('chat-form');
+  const input = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('chat-send');
+
+  function now() {
+    return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function addMsg(text, from) {
+    const el = document.createElement('div');
+    el.className = `msg msg--${from}`;
+    el.textContent = text;
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+    return el;
+  }
+
+  function showTyping() {
+    const el = document.createElement('div');
+    el.className = 'typing';
+    el.innerHTML = '<i></i><i></i><i></i>';
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+    return el;
+  }
+
+  function matchReply(text) {
+    const t = text.toLowerCase();
+    for (const s of scripted) {
+      if (s.k.some(k => t.includes(k))) return s.a;
+    }
+    return defaultReply;
+  }
+
+  function send(text) {
+    const t = text.trim();
+    if (!t) return;
+    chipsEl.style.display = 'none';
+    addMsg(t, 'user');
+    input.value = '';
+    sendBtn.disabled = true;
+    const typing = showTyping();
+    const reply = matchReply(t);
+    const delay = Math.min(2200, 700 + reply.length * 14);
+    setTimeout(() => {
+      typing.remove();
+      addMsg(reply, 'bot');
+    }, delay);
+  }
+
+  fab.addEventListener('click', () => {
+    fab.classList.add('is-hidden');
+    panel.classList.add('is-open');
+  });
+  closeBtn.addEventListener('click', () => {
+    panel.classList.remove('is-open');
+    fab.classList.remove('is-hidden');
+  });
+
+  form.addEventListener('submit', (e) => { e.preventDefault(); send(input.value); });
+  input.addEventListener('input', () => { sendBtn.disabled = !input.value.trim(); });
+
+  document.querySelectorAll('.chip-btn').forEach(btn => {
+    btn.addEventListener('click', () => send(btn.dataset.text || ''));
+  });
+
+  addMsg(greeting, 'bot');
+</script>
