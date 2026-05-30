@@ -109,8 +109,8 @@ export const es: Translations = {
     lead: 'Elige cómo quieres trabajar con nosotros. Todos incluyen un equipo senior y comunicación directa.',
     featured: 'Más popular',
     items: [
-      { name: 'Sprint', desc: 'Para validar una idea o resolver un reto puntual.', from: 'Desde', price: 'USD 4.900', unit: '/ proyecto', features: ['Discovery + prototipo navegable', 'MVP funcional en 4–6 semanas', '1 ronda de iteración', 'Documentación de entrega', 'Soporte 30 días'], cta: 'Empezar un sprint', featured: false },
-      { name: 'Producto', desc: 'Para construir y escalar un producto completo.', from: 'Desde', price: 'USD 9.900', unit: '/ mes', features: ['Equipo dedicado (PM + 2 devs)', 'Sprints quincenales con demos', 'Diseño UX/UI incluido', 'Infra Cloud & CI/CD', 'Soporte y SLA prioritario', 'Roadmap evolutivo'], cta: 'Hablar de mi producto', featured: true },
+      { name: 'Sprint', desc: 'Para validar una idea o resolver un reto puntual.', from: 'Desde', price: 'USD 2,900', unit: '/ proyecto', features: ['Discovery + prototipo navegable', 'MVP funcional en 4–6 semanas', '1 ronda de iteración', 'Documentación de entrega', 'Soporte 30 días'], cta: 'Empezar un sprint', featured: false },
+      { name: 'Producto', desc: 'Para construir y escalar un producto completo.', from: 'Desde', price: 'USD 4,900', unit: '/ mes', features: ['Equipo dedicado (PM + 2 devs)', 'Sprints quincenales con demos', 'Diseño UX/UI incluido', 'Infra Cloud & CI/CD', 'Soporte y SLA prioritario', 'Roadmap evolutivo'], cta: 'Hablar de mi producto', featured: true },
       { name: 'Enterprise', desc: 'Para necesidades complejas y a gran escala.', from: '', price: 'A medida', unit: '', features: ['Equipos multidisciplinarios', 'Arquitectura & seguridad avanzada', 'Integraciones con sistemas legacy', 'SLA 24/7 garantizado', 'Gerente de cuenta dedicado'], cta: 'Solicitar propuesta', featured: false },
     ],
   },
@@ -181,7 +181,7 @@ export const es: Translations = {
     chips: ['¿Qué servicios ofrecen?', '¿Cuánto cuesta un proyecto?', 'Quiero agendar una llamada', '¿Hacen soluciones con IA?'],
     scripted: [
       { k: ['servicio', 'qué hacen', 'que hacen', 'ofrecen'], a: 'Ofrecemos desarrollo de software a medida, apps móviles, soluciones con IA, automatizaciones, integraciones, cloud/DevOps, consultoría y soporte. ¿Sobre cuál te gustaría saber más?' },
-      { k: ['precio', 'cuesta', 'costo', 'presupuesto', 'cuánto', 'cuanto'], a: 'El precio depende del alcance. Tenemos planes desde $4.900 por sprint hasta equipos dedicados. Lo ideal es una llamada de discovery para darte una estimación clara. ¿Te agendo una?' },
+      { k: ['precio', 'cuesta', 'costo', 'presupuesto', 'cuánto', 'cuanto'], a: 'El precio depende del alcance. Tenemos planes desde USD 2,900 por sprint hasta equipos dedicados. Lo ideal es una llamada de discovery para darte una estimación clara. ¿Te agendo una?' },
       { k: ['ia', 'inteligencia', 'ai', 'chatbot', 'modelo'], a: '¡Sí! Construimos asistentes, copilotos, búsqueda con RAG y modelos predictivos integrados a tus sistemas. ¿Qué problema te gustaría resolver con IA?' },
       { k: ['llamada', 'agendar', 'reunión', 'reunion', 'cita', 'contacto'], a: 'Genial 🙌 Puedes agendar una llamada de 30 min sin compromiso en la sección de contacto, o déjame tu correo aquí y un humano del equipo te escribe hoy mismo.' },
       { k: ['app', 'móvil', 'movil', 'android', 'ios'], a: 'Desarrollamos apps nativas y multiplataforma (React Native, Swift, Kotlin). ¿Es una app nueva o quieres evolucionar una existente?' },

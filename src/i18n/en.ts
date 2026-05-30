@@ -109,8 +109,8 @@ export const en: Translations = {
     lead: 'Choose how you want to work with us. All plans include a senior team and direct communication.',
     featured: 'Most popular',
     items: [
-      { name: 'Sprint', desc: 'To validate an idea or solve a specific challenge.', from: 'From', price: 'USD 4,900', unit: '/ project', features: ['Discovery + navigable prototype', 'Functional MVP in 4–6 weeks', '1 iteration round', 'Delivery documentation', '30-day support'], cta: 'Start a sprint', featured: false },
-      { name: 'Product', desc: 'To build and scale a complete product.', from: 'From', price: 'USD 9,900', unit: '/ month', features: ['Dedicated team (PM + 2 devs)', 'Bi-weekly sprints with demos', 'UX/UI design included', 'Cloud infra & CI/CD', 'Priority support & SLA', 'Evolving roadmap'], cta: 'Talk about my product', featured: true },
+      { name: 'Sprint', desc: 'To validate an idea or solve a specific challenge.', from: 'From', price: 'USD 2,900', unit: '/ project', features: ['Discovery + navigable prototype', 'Functional MVP in 4–6 weeks', '1 iteration round', 'Delivery documentation', '30-day support'], cta: 'Start a sprint', featured: false },
+      { name: 'Product', desc: 'To build and scale a complete product.', from: 'From', price: 'USD 4,900', unit: '/ month', features: ['Dedicated team (PM + 2 devs)', 'Bi-weekly sprints with demos', 'UX/UI design included', 'Cloud infra & CI/CD', 'Priority support & SLA', 'Evolving roadmap'], cta: 'Talk about my product', featured: true },
       { name: 'Enterprise', desc: 'For complex and large-scale needs.', from: '', price: 'Custom', unit: '', features: ['Multidisciplinary teams', 'Advanced architecture & security', 'Legacy system integrations', 'Guaranteed 24/7 SLA', 'Dedicated account manager'], cta: 'Request a proposal', featured: false },
     ],
   },
@@ -181,7 +181,7 @@ export const en: Translations = {
     chips: ['What services do you offer?', 'How much does a project cost?', 'I want to schedule a call', 'Do you do AI solutions?'],
     scripted: [
       { k: ['service', 'what do you', 'offer', 'do you do'], a: 'We offer custom software development, mobile apps, AI solutions, automations, integrations, cloud/DevOps, consulting, and support. Which would you like to know more about?' },
-      { k: ['price', 'cost', 'budget', 'how much'], a: 'The price depends on the scope. We have plans from $4,900 per sprint to dedicated teams. The best next step is a discovery call for a clear estimate. Shall I schedule one?' },
+      { k: ['price', 'cost', 'budget', 'how much'], a: 'The price depends on the scope. We have plans from $2,900 per sprint to dedicated teams. The best next step is a discovery call for a clear estimate. Shall I schedule one?' },
       { k: ['ai', 'artificial', 'chatbot', 'model', 'intelligence'], a: 'Yes! We build assistants, copilots, RAG search, and predictive models integrated into your systems. What problem would you like to solve with AI?' },
       { k: ['call', 'schedule', 'meeting', 'appointment', 'contact'], a: 'Great 🙌 You can schedule a 30-min no-commitment call in the contact section, or leave your email here and a team member will write to you today.' },
       { k: ['app', 'mobile', 'android', 'ios'], a: 'We develop native and cross-platform apps (React Native, Swift, Kotlin). Is it a new app or do you want to evolve an existing one?' },
