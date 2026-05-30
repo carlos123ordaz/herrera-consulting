@@ -102,13 +102,19 @@ const sendIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
     }, delay);
   }
 
+  const isMobile = () => window.innerWidth < 720;
+  function lockScroll() { if (isMobile()) document.body.style.overflow = 'hidden'; }
+  function unlockScroll() { document.body.style.overflow = ''; }
+
   fab.addEventListener('click', () => {
     fab.classList.add('is-hidden');
     panel.classList.add('is-open');
+    lockScroll();
   });
   closeBtn.addEventListener('click', () => {
     panel.classList.remove('is-open');
     fab.classList.remove('is-hidden');
+    unlockScroll();
   });
 
   form.addEventListener('submit', (e) => { e.preventDefault(); send(input.value); });
