@@ -15,6 +15,8 @@ const { title, description, lang } = Astro.props;
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   {lang === 'es' && (
     <script is:inline>
       if (!sessionStorage.getItem('lang-chosen')) {
@@ -28,6 +30,31 @@ const { title, description, lang } = Astro.props;
   )}
 </head>
 <body>
-  <slot />
+  <canvas id="bg-canvas"></canvas>
+  <div class="bg-veil"></div>
+  <div class="cursor-glow" id="cursor-glow"></div>
+  <div id="root">
+    <slot />
+  </div>
+
+  <script is:inline src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+  <script is:inline src="/js/three-bg.js"></script>
+  <script is:inline>
+    (function () {
+      const g = document.getElementById("cursor-glow");
+      if (g && window.matchMedia && !window.matchMedia("(pointer: coarse)").matches) {
+        let x = -1000, y = -1000, tx = x, ty = y, seen = false;
+        addEventListener("pointermove", (e) => { tx = e.clientX; ty = e.clientY; if (!seen) { seen = true; x = tx; y = ty; } }, { passive: true });
+        (function loop() {
+          x += (tx - x) * 0.12; y += (ty - y) * 0.12;
+          g.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";
+          requestAnimationFrame(loop);
+        })();
+      } else if (g) { g.style.display = "none"; }
+      addEventListener("click", (e) => {
+        if (e.target.closest && e.target.closest(".btn--primary, .chat-fab") && window.__bgPulse) window.__bgPulse();
+      });
+    })();
+  </script>
 </body>
 </html>
