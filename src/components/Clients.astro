@@ -1,0 +1,22 @@
+---
+import type { Translations } from '../i18n/types';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+
+const logos = [...t.trust.items, 'Andén', 'Solvento'].slice(0, 10);
+---
+
+<section class="clients" id="clientes">
+  <div class="clients__head">
+    <h2 data-reveal>
+      Clientes a los cuales,<br />hoy llamamos <em>amigos</em>
+    </h2>
+  </div>
+  <div class="logos">
+    {logos.map((name, i) => (
+      <div class="logo" data-reveal style={`--d:${(i % 5) * 60}ms`}>
+        <span>{name}</span>
+      </div>
+    ))}
+  </div>
+</section>

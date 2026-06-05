@@ -5,70 +5,60 @@ const { t } = Astro.props;
 ---
 
 <header class="nav" id="site-nav">
-  <div class="container nav__inner">
-    <a href="#top" class="brand">
-      <span class="brand__mark"><span></span></span>
-      <span>
-        {t.brand.name}
-        <small>{t.brand.tagline}</small>
-      </span>
-    </a>
-    <nav class="nav__links">
-      {t.nav.links.map((l) => <a href={l.href}>{l.label}</a>)}
-    </nav>
-    <div class="nav__cta">
-      <div class="lang-switch">
-        <a href="/" class={t.lang === 'es' ? 'is-active' : ''}>ES</a>
-        <a href="/en/" class={t.lang === 'en' ? 'is-active' : ''}>EN</a>
-      </div>
-      <a href="#contacto" class="btn btn--primary btn--sm">{t.nav.cta}</a>
-      <button class="nav__burger" id="burger-btn" aria-label="Menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="burger-icon">
-          <path d="M3 6h18M3 12h18M3 18h18"/>
-        </svg>
-      </button>
-    </div>
-  </div>
+  <a href="#top" class="brand" aria-label="Inicio">
+    <span class="brand__dot"></span>
+    <span><b>herrera</b><span class="light full"> consulting</span></span>
+  </a>
+  <button class="menu-trigger" id="menu-trigger" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+  </button>
+  <a class="hello" href="#contacto">
+    ¡Hola;<br />hablemos!
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 7h11l-3-3"/><path d="M17 17H6l3 3"/>
+    </svg>
+  </a>
 </header>
 
-<div class="mobile-menu" id="mobile-menu">
-  {t.nav.links.map((l) => <a href={l.href}>{l.label}</a>)}
-  <a href="#contacto" class="btn btn--primary">{t.nav.cta}</a>
-  <div class="lang-switch">
-    <a href="/" class={t.lang === 'es' ? 'is-active' : ''}>ES</a>
-    <a href="/en/" class={t.lang === 'en' ? 'is-active' : ''}>EN</a>
+<div class="menu-overlay" id="menu-overlay">
+  <button class="menu-overlay__close" id="menu-close" aria-label="Cerrar menú">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 6L6 18M6 6l12 12"/>
+    </svg>
+  </button>
+  <nav class="menu-overlay__list">
+    <a href="#servicios" class="menu-link">Servicios</a>
+    <a href="#proceso" class="menu-link">Proceso</a>
+    <a href="#casos" class="menu-link">Casos</a>
+    <a href="#clientes" class="menu-link">Clientes</a>
+    <a href="#contacto" class="menu-link">Hablemos</a>
+  </nav>
+  <div class="menu-overlay__foot">
+    <a href="#contacto">hola@consultoraherrera.com</a>
+    <a href="#contacto">+51 904 435 631</a>
+    <span>Lima · Bogotá · Remoto</span>
   </div>
 </div>
 
 <script>
-  const nav = document.getElementById('site-nav')!;
-  const burger = document.getElementById('burger-btn')!;
-  const menu = document.getElementById('mobile-menu')!;
-  const icon = document.getElementById('burger-icon')!;
+  const trigger = document.getElementById('menu-trigger')!;
+  const overlay = document.getElementById('menu-overlay')!;
+  const closeBtn = document.getElementById('menu-close')!;
 
-  const menuIcon = `<path d="M3 6h18M3 12h18M3 18h18"/>`;
-  const closeIcon = `<path d="M18 6L6 18M6 6l12 12"/>`;
+  function openMenu() {
+    overlay.classList.add('is-open');
+    document.documentElement.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    overlay.classList.remove('is-open');
+    document.documentElement.style.overflow = '';
+  }
 
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('is-scrolled', window.scrollY > 24);
-  }, { passive: true });
-
-  burger.addEventListener('click', () => {
-    const open = menu.classList.toggle('is-open');
-    icon.innerHTML = open ? closeIcon : menuIcon;
-  });
-
-  menu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      menu.classList.remove('is-open');
-      icon.innerHTML = menuIcon;
-    });
-  });
-
-  document.querySelectorAll('.lang-switch a').forEach(a => {
-    a.addEventListener('click', () => {
-      const href = (a as HTMLAnchorElement).getAttribute('href') || '';
-      sessionStorage.setItem('lang-chosen', href.includes('/en/') ? 'en' : 'es');
-    });
+  trigger.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.querySelectorAll('.menu-link').forEach(a => {
+    a.addEventListener('click', closeMenu);
   });
 </script>

@@ -5,25 +5,20 @@ const { t } = Astro.props;
 const p = t.process;
 ---
 
-<section class="section process" id="proceso">
-  <div class="container">
-    <div class="process__head reveal">
-      <div class="section-head">
-        <span class="eyebrow eyebrow--on-navy">{p.eyebrow}</span>
-        <h2 class="h-section">{p.title}</h2>
+<section class="process" id="proceso">
+  <div class="process__head">
+    <span class="eyebrow" data-reveal>{p.eyebrow}</span>
+    <h2 data-reveal style="--d:60ms">
+      Un proceso claro, <span class="serif">sin cajas negras.</span>
+    </h2>
+  </div>
+  <div class="steps">
+    {p.steps.map((step, i) => (
+      <div class="step" data-reveal style={`--d:${i * 90}ms`}>
+        <div class="step__num">{step.num} / 0{p.steps.length}</div>
+        <h3>{step.title}</h3>
+        <p>{step.desc}</p>
       </div>
-      <p class="lead" style="max-width:38ch">{p.lead}</p>
-    </div>
-    <div class="steps">
-      {p.steps.map((step) => (
-        <div class="step reveal">
-          <div class="step__num">{step.num} / 0{p.steps.length}</div>
-          <div class="step__line"></div>
-          <h3>{step.title}</h3>
-          <p>{step.desc}</p>
-          <div class="step__meta">{step.meta[0]}: <b>{step.meta[1]}</b></div>
-        </div>
-      ))}
-    </div>
+    ))}
   </div>
 </section>

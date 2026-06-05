@@ -30,30 +30,93 @@ const { title, description, lang } = Astro.props;
   )}
 </head>
 <body>
-  <canvas id="bg-canvas"></canvas>
-  <div class="bg-veil"></div>
-  <div class="cursor-glow" id="cursor-glow"></div>
-  <div id="root">
-    <slot />
-  </div>
+  <slot />
 
-  <script is:inline src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
-  <script is:inline src="/js/three-bg.js"></script>
   <script is:inline>
     (function () {
-      const g = document.getElementById("cursor-glow");
-      if (g && window.matchMedia && !window.matchMedia("(pointer: coarse)").matches) {
-        let x = -1000, y = -1000, tx = x, ty = y, seen = false;
-        addEventListener("pointermove", (e) => { tx = e.clientX; ty = e.clientY; if (!seen) { seen = true; x = tx; y = ty; } }, { passive: true });
-        (function loop() {
-          x += (tx - x) * 0.12; y += (ty - y) * 0.12;
-          g.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";
-          requestAnimationFrame(loop);
-        })();
-      } else if (g) { g.style.display = "none"; }
-      addEventListener("click", (e) => {
-        if (e.target.closest && e.target.closest(".btn--primary, .chat-fab") && window.__bgPulse) window.__bgPulse();
-      });
+      var EASE = "cubic-bezier(0.22, 0.61, 0.36, 1)";
+      var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.__clockLive = false;
+
+      function playReveal(el) {
+        if (el.__shown) return;
+        el.__shown = true;
+        if (reduced || !el.animate || !window.__clockLive) return;
+        var d = parseFloat(getComputedStyle(el).getPropertyValue("--d")) || 0;
+        try {
+          el.animate(
+            [{ opacity: 0, transform: "translateY(36px)" }, { opacity: 1, transform: "none" }],
+            { duration: 760, delay: d, easing: EASE, fill: "none" }
+          );
+        } catch (e) {}
+        var marks = el.classList.contains("hl") ? [el] : el.querySelectorAll(".hl");
+        marks.forEach(function (m) {
+          var hd = parseFloat(getComputedStyle(m).getPropertyValue("--hd")) || 0.25;
+          try {
+            m.animate(
+              [{ backgroundSize: "0% 100%" }, { backgroundSize: "0% 100%", offset: 0.0001 }, { backgroundSize: "104% 100%" }],
+              { duration: 820, delay: d + hd * 1000, easing: EASE, fill: "none" }
+            );
+          } catch (e) {}
+        });
+      }
+
+      function check() {
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        document.querySelectorAll("[data-reveal]").forEach(function (el) {
+          if (el.__shown) return;
+          var r = el.getBoundingClientRect();
+          if (r.top < vh * 0.9 && r.bottom > 0) playReveal(el);
+        });
+      }
+      window.__revealCheck = check;
+
+      var ticking = false;
+      var onScroll = function () {
+        if (ticking) return; ticking = true;
+        requestAnimationFrame(function () { ticking = false; check(); });
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+
+      try {
+        var probe = document.createElement("div");
+        probe.style.cssText = "position:fixed;left:-9999px;width:1px;height:1px;pointer-events:none;";
+        document.body.appendChild(probe);
+        var a = probe.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000 });
+        setTimeout(function () {
+          window.__clockLive = (a.currentTime || 0) > 0;
+          try { a.cancel(); probe.remove(); } catch (e) {}
+          check();
+        }, 60);
+      } catch (e) { window.__clockLive = false; check(); }
+      setTimeout(check, 240);
+      setTimeout(check, 600);
+
+      /* Nav minimize on scroll */
+      var nav = document.getElementById("site-nav");
+      if (nav) {
+        window.addEventListener("scroll", function () {
+          nav.classList.toggle("is-min", window.scrollY > 560);
+        }, { passive: true });
+      }
+
+      /* Parallax */
+      if (!reduced) {
+        var pticking = false;
+        window.addEventListener("scroll", function () {
+          if (pticking) return; pticking = true;
+          requestAnimationFrame(function () {
+            pticking = false;
+            document.querySelectorAll("[data-parallax]").forEach(function (el) {
+              var r = el.getBoundingClientRect();
+              var speed = parseFloat(el.dataset.parallax) || 0.12;
+              var center = r.top + r.height / 2 - window.innerHeight / 2;
+              el.style.transform = "translate3d(0, " + (-center * speed).toFixed(1) + "px, 0)";
+            });
+          });
+        }, { passive: true });
+      }
     })();
   </script>
 </body>

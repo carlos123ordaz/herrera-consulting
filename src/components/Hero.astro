@@ -5,34 +5,49 @@ const { t } = Astro.props;
 const h = t.hero;
 ---
 
-<section class="hero reveal" id="top">
-  <div class="hero__grid-bg"></div>
-  <div class="container hero__inner">
-    <div class="hero__badge reveal">
-      <span class="hero__dot"></span>
-      {h.badge}
-      <b>{h.badgeTag}</b>
-    </div>
-    <h1 class="h-display reveal">{h.titlePre}<em>{h.titleEm}</em>{h.titlePost}</h1>
-    <p class="lead hero__lead reveal">{h.lead}</p>
-    <div class="hero__actions reveal">
-      <a href="#contacto" class="btn btn--primary btn--lg">
-        {h.ctaPrimary}
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a href="#servicios" class="btn btn--ghost btn--lg">{h.ctaSecondary}</a>
-      <span class="hero__note">{h.note}</span>
-    </div>
+<section class="hero" id="top">
+  <div class="hero__inner">
+    <div class="hero__guides" aria-hidden="true"><span></span><span></span></div>
 
-    <div class="stats reveal">
-      {t.stats.map((s) => (
-        <div class="stat">
-          <div class="stat__num">{s.num}<span>{s.suffix}</span></div>
-          <div class="stat__label">{s.label}</div>
-        </div>
-      ))}
+    <h1 class="hero__title" data-reveal>
+      Consultora digital.{' '}
+      <mark class="hl">Construimos</mark> el{' '}
+      <mark class="hl">futuro pensando</mark> en tu{' '}
+      <mark class="hl">software</mark>
+    </h1>
+
+    <aside class="hero__aside">
+      <p class="hero__lead" data-reveal style="--d:120ms">
+        {h.lead}
+      </p>
+      <div class="hero__scroll" aria-hidden="true" data-reveal style="--d:200ms">
+        <svg class="ring" viewBox="0 0 120 120">
+          <defs>
+            <path id="circlePath" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
+          </defs>
+          <text>
+            <textPath href="#circlePath" startOffset="0">
+              desliza · y conoce lo nuevo · desliza ·
+            </textPath>
+          </text>
+        </svg>
+        <span class="arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 4v15M6 13l6 6 6-6"/>
+          </svg>
+        </span>
+      </div>
+    </aside>
+
+    <div class="hero__media" data-reveal style="--d:160ms">
+      <img
+        src="/images/portadaedifica.webp"
+        alt="Dashboard Edifica"
+        class="hero__img"
+        loading="eager"
+        width="1600"
+        height="840"
+      />
     </div>
   </div>
 </section>
-
-
