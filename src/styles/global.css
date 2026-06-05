@@ -126,6 +126,7 @@ img { display: block; max-width: 100%; }
 .brand .full { transition: max-width 0.5s var(--ease), opacity 0.4s var(--ease); display: inline-block; overflow: hidden; white-space: nowrap; }
 .nav.is-min .brand .full { max-width: 0; opacity: 0; }
 .nav.is-min .brand { gap: 0; }
+.brand__initial { display: none; font-weight: 800; font-size: 24px; letter-spacing: -0.04em; }
 
 /* Grid-dots menu trigger */
 .menu-trigger {
@@ -311,10 +312,9 @@ img { display: block; max-width: 100%; }
   grid-column: 2; grid-row: 2;
   margin-top: clamp(28px, 3.5vw, 56px);
   position: relative;
-  overflow: hidden;
 }
 .hero__media .img-slot { width: 100%; height: clamp(300px, 46vw, 680px); }
-.hero__img { width: 100%; height: clamp(300px, 46vw, 680px); object-fit: cover; display: block; }
+.hero__img { width: 100%; height: auto; display: block; }
 
 /* ============================================================
    SERVICES
@@ -696,9 +696,63 @@ img { display: block; max-width: 100%; }
 
 /* Small screens nav */
 @media (max-width: 620px) {
-  .hello { font-size: 13px; padding: 18px; }
-  .brand { font-size: 19px; }
-  .nav { grid-template-columns: 1fr auto; }
-  .menu-trigger { grid-column: 2; justify-self: end; margin-right: 10px; }
-  .hello { display: none; }
+  .nav { grid-template-columns: 1fr auto 1fr; align-items: center; }
+  .brand { font-size: 18px; padding: clamp(16px, 2vw, 20px) var(--pad); gap: 0; }
+  .brand__text { display: none; }
+  .brand__initial { display: block; }
+  .menu-trigger { grid-column: 2; justify-self: center; margin: 0; }
+  .hello {
+    display: flex;
+    justify-self: end;
+    font-size: 11px;
+    line-height: 1.15;
+    padding: 14px 16px;
+    gap: 6px;
+    align-items: center;
+  }
+  .hello svg { width: 14px; height: 14px; }
+}
+
+/* ============================================================
+   RESPONSIVE REFINEMENTS
+   ============================================================ */
+
+/* Hero: stack aside vertically on small phones so ring + lead don't compete */
+@media (max-width: 500px) {
+  .hero__aside { flex-direction: column; gap: 18px; }
+  .hero__scroll { width: 96px; height: 96px; }
+  .hero__lead { max-width: 100%; }
+}
+
+/* Services: tighten intro gap when stacked */
+@media (max-width: 500px) {
+  .services__intro { gap: 20px; }
+}
+
+/* Cases: shorter images on stacked (mobile) layout */
+@media (max-width: 820px) {
+  .case-row__img,
+  .case-row__media .img-slot { min-height: 240px; }
+}
+
+/* Cases: wrap metrics safely and tighten body padding on narrow screens */
+@media (max-width: 480px) {
+  .case-row__body { padding: 28px 20px; }
+  .case-row__metrics { gap: 24px; flex-wrap: wrap; }
+}
+
+/* Clients: ensure logos don't overflow on very small screens */
+@media (max-width: 380px) {
+  .logos { grid-template-columns: 1fr; }
+}
+
+/* Contact: tighten inner padding on very small screens */
+@media (max-width: 400px) {
+  .contact__inner { gap: 32px; }
+  .contact__left h2 { font-size: 2.4rem; }
+}
+
+/* Footer: improve readability at mid-breakpoint */
+@media (max-width: 760px) {
+  .footer__top { gap: 32px; }
 }
