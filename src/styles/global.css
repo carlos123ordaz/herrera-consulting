@@ -696,7 +696,7 @@ img { display: block; max-width: 100%; }
 
 /* Small screens nav */
 @media (max-width: 620px) {
-  .nav { grid-template-columns: 1fr auto 1fr; align-items: center; }
+  .nav { grid-template-columns: 1fr auto 1fr; align-items: center; background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
   .brand { font-size: 18px; padding: clamp(16px, 2vw, 20px) var(--pad); gap: 0; }
   .brand__text { display: none; }
   .brand__initial { display: block; }
